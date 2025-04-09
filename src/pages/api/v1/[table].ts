@@ -100,7 +100,7 @@ export const GET: APIRoute = async (context) => {
     params.accessControlResult = { ...accessControlResult };
   }
 
-  /*
+
   if (!accessControlResult) {
     return new Response(
       JSON.stringify({
@@ -108,7 +108,7 @@ export const GET: APIRoute = async (context) => {
       }),
       { status: 401 }
     );
-  }*/
+  }
 
   try {
     params.limit = params.limit ?? "100";
@@ -135,10 +135,10 @@ export const GET: APIRoute = async (context) => {
         context,
         data
       );
-      /*
+
       if (!accessControlResult) {
         return return400();
-      }*/
+      }
     }
     data.data = await filterReadFieldAccess(
       entry.access?.fields,
