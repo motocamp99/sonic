@@ -24,6 +24,17 @@ import { kvPut } from "@services/kv";
 import { validateSessionToken } from "@services/sessions";
 import { checkToken } from "@services/token";
 
+export const OPTIONS: APIRoute = async (context) => {
+  return new Response(null, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+      "Access-Control-Max-Age": "86400" // 24 hours
+    }
+  });
+};
+
 export const GET: APIRoute = async (context) => {
   const start = Date.now();
   let params: {
@@ -147,7 +158,7 @@ export const GET: APIRoute = async (context) => {
     data.executionTime = executionTime;
 
     return new Response(JSON.stringify(data), {
-      headers: { ...corsHeaders , "Content-Type": "application/json" }/*{ "Content-Type": "application/json" }*/,
+      headers: { ...corsHeaders, "Content-Type": "application/json" }/*{ "Content-Type": "application/json" }*/,
     });
   } catch (error) {
     console.log(error);
