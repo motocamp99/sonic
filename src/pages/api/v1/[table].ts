@@ -55,6 +55,12 @@ export const GET: APIRoute = async (context) => {
 
   const request = context.request;
 
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*', // Replace '*' with your specific origin if needed
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+
   const query =
     request.url.indexOf("?") > 0 ? request.url.split("?")[1] : undefined;
   const queryParams = query ? qs.parse(query, { duplicates: "combine" }) : {};
@@ -83,6 +89,7 @@ export const GET: APIRoute = async (context) => {
     params.accessControlResult = { ...accessControlResult };
   }
 
+  /*
   if (!accessControlResult) {
     return new Response(
       JSON.stringify({
@@ -90,7 +97,7 @@ export const GET: APIRoute = async (context) => {
       }),
       { status: 401 }
     );
-  }
+  }*/
 
   try {
     params.limit = params.limit ?? "100";
@@ -117,15 +124,10 @@ export const GET: APIRoute = async (context) => {
         context,
         data
       );
+      /*
       if (!accessControlResult) {
-
-        return new Response('nothing here', {
-          headers: { "Content-Type": "application/json" },
-        });
-
-
         return return400();
-      }
+      }*/
     }
     data.data = await filterReadFieldAccess(
       entry.access?.fields,
@@ -145,7 +147,7 @@ export const GET: APIRoute = async (context) => {
     data.executionTime = executionTime;
 
     return new Response(JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
+      headers: { ...corsHeaders , "Content-Type": "application/json" }/*{ "Content-Type": "application/json" }*/,
     });
   } catch (error) {
     console.log(error);
