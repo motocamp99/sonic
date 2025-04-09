@@ -53,6 +53,12 @@ export const GET: APIRoute = async (context) => {
   const { env } = context.locals.runtime;
   // const db = drizzle(env.D1);
 
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*', // Replace '*' with your specific origin if needed
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+
   const request = context.request;
 
   const query =
@@ -139,12 +145,7 @@ export const GET: APIRoute = async (context) => {
     data.executionTime = executionTime;
 
     return new Response(JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type"
-      },
+      headers: { ...corsHeaders },
     });
   } catch (error) {
     console.log(error);
