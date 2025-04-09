@@ -119,7 +119,7 @@ export const GET: APIRoute = async (context) => {
       );
       if (!accessControlResult) {
 
-        return new Response(JSON.stringify(accessControlResult), {
+        return new Response('nothing here', {
           headers: { "Content-Type": "application/json" },
         });
 
