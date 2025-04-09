@@ -24,6 +24,13 @@ import { kvPut } from "@services/kv";
 import { validateSessionToken } from "@services/sessions";
 import { checkToken } from "@services/token";
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*', // Replace '*' with your specific origin if needed
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+
 export const OPTIONS: APIRoute = async (context) => {
   return new Response(null, {
     headers: {
@@ -66,11 +73,6 @@ export const GET: APIRoute = async (context) => {
 
   const request = context.request;
 
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*', // Replace '*' with your specific origin if needed
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
 
   const query =
     request.url.indexOf("?") > 0 ? request.url.split("?")[1] : undefined;
