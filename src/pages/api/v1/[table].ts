@@ -26,7 +26,7 @@ import { checkToken } from "@services/token";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*', // Replace '*' with your specific origin if needed
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET'/*, POST, OPTIONS'*/,
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
